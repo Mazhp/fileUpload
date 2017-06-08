@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+  <img id="uploadPreview" style="width: 100px; height: 100px;"/>
+  <input id="uploadImage" type="file"/>
+</body>
+<script type="text/javascript">
+  // 获取到input对象
+  var fileInput = document.querySelector("#uploadImage");
+  var file = null;
+  // 初始化一个FileReader对象的实例
+  var oFReader = new FileReader();
+  // FileReader对象的读取方法是异步的，所以在onload事件中加载读取到的图片
+  oFReader.onload = function (oFREvent) {
+    console.log(oFREvent.target.result);
+    // 图片的src 为读取到的数据
+    document.getElementById("uploadPreview").src = oFREvent.target.result;
+  };
+
+  fileInput.onchange = function () {
+
+    // 获取到文件
+    file = fileInput.files.item(0);
+    // 读取文件
+    oFReader.readAsText(file);
+//    oFReader.readAsDataURL(file);
+  }
+</script>
+</html>

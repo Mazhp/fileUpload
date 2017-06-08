@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  var formData = new FormData();
+  formData.append('username', 'Mzp');
+//  formData.append('username', 'Mzp11');
+  formData.set('username', 'Mzp11');
+  console.log(formData.get('username'));  // 打印出  Mzp11
+  console.log(formData.getAll('username'));  // 打印出  ['Mzp11']
+</script>
+</body>
+</html>

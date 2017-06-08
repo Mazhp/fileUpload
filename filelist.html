@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id="fileItem" multiple type="file">
+</body>
+<script>
+  var fileInput = document.querySelector("#fileItem");
+  var filelist = null;
+  fileInput.onchange = function () {
+    filelist = fileInput.files;
+    for (var i = 0, len = filelist.length; i < len; i++) {
+      var file = filelist.item(i);
+      console.log(file);
+    }
+  }
+</script>
+</html>

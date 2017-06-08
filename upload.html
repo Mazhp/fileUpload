@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form enctype="multipart/form-data" method="post" name="fileinfo">
+    <label>Your email address:</label>
+    <input type="email" autocomplete="on" autofocus name="userid" placeholder="email" required size="32" maxlength="64" /><br />
+    <label>Custom file label:</label>
+    <input type="text" name="filelabel" size="12" maxlength="32" /><br />
+    <label>File to stash:</label>
+    <input type="file" name="file" required />
+    <input type="submit" value="Stash the file!" />
+</form>
+<div></div>
+</body>
+<script>
+  var form = document.forms.namedItem("fileinfo");
+
+  form.addEventListener('submit', function(ev) {
+    var outInfo = document.querySelector("div"),
+      formData = new FormData(form);
+
+    formData.append("CustomField", "This is some extra data");
+
+    // ajax 请求四部曲 1 创建xhr对象
+    var xhr = new XMLHttpRequest();
+    var url = '';
+    // 2 打开
+    xhr.open("POST", url, true);
+
+    /*
+    * 3.监听事件，onload 完成加载，
+    * onreadystatechange 也可以 因为readyState代表状态，
+    * 0 未打开，可以理解上面四部曲里面的创建对象
+    * 1 未发送 可以理解为调用了open
+    * 2 获取请求头  send方法已经调用了
+    * 3 正在下载响应体
+    * 4 请求完成 readystate === 4  ===  onload
+    * */
+    xhr.onload = function(oEvent) {
+      if (xhr.status == 200) {
+        outInfo.innerHTML = "Uploaded!";
+      } else {
+        outInfo.innerHTML = "Error " + xhr.status + " occurred when trying to upload your file.<br \/>";
+      }
+    };
+    // 4. 发送
+    xhr.send(formData);
+    // 清除默认事件
+    ev.preventDefault();
+  }, false);
+</script>
+</html>
